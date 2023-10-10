@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+
+{% block title %} - {{ book.title }} {% endblock %}
+
+{% block content %}
+<section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <h1 class="display-4">{{ book.title }}</h1>
+                <p class="lead">
+                    <i class="fas fa-user-graduate"></i> {{ book.author }} {{ book.published_year }}, {{ book.publication }}
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Breadcrumb -->
+<section id="bc" class="mt-3">
+    <div class="container">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{% url 'books' %}">books</a>
+                </li>
+                <li class="breadcrumb-item active">{{ book.title }}</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Alerts -->
+{% include 'partials/_alerts.html' %}
+
+<!-- Listing -->
+<section id="listing" class="py-4">
+    <div class="container">
+        <a href="{% url 'books' %}" class="btn btn-light mb-4">Back To Listings</a>
+        <div class="row">
+            <div class="col-md-9">
+                <!-- Home Main Image -->
+                <img src="{{ book.photo.url }}" alt="" class="img-main img-fluid mb-3">
+                <!-- Thumbnails -->
+                <div class="row mb-5 thumbs">
+                    <!-- Check photo exits or not in database -->
+                    {% if book.front_cover %}
+                    <div class="col-md-2">
+                        <a href="{{ book.front_cover.url }}" data-lightbox="home-images">
+                            <img src="{{ book.front_cover.url }}" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                    {% endif %}
+                    {% if book.back_cover %}
+                    <div class="col-md-2">
+                        <a href="{{ book.back_cover.url }}" data-lightbox="home-images">
+                            <img src="{{ book.back_cover.url }}" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                    {% endif %}
+                    {% if book.front_page %}
+                    <div class="col-md-2">
+                        <a href="{{ book.front_page.url }}" data-lightbox="home-images">
+                            <img src="{{ book.front_page.url }}" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                    {% endif %}
+                    {% if listing.back_page %}
+                    <div class="col-md-2">
+                        <a href="{{ book.back_page.url }}" data-lightbox="home-images">
+                            <img src="{{ book.back_page.url }}" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+                <!-- Fields -->
+                <div class="row mb-5 fields">
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item text-secondary">
+                                <i class="fas fa-money-bill-alt"></i> <strong>Asking Price:</strong>
+                                <span class="float-right">&#8377;{{ book.price | intcomma }}</span>
+                            </li>
+                            <li class="list-group-item text-secondary">
+                                <i class="fas fa-user-graduate text-secondary"></i> <strong>Author: </strong>
+                                <span class="float-right">{{ book.author }}</span>
+                            </li>
+                            <li class="list-group-item text-secondary">
+                                <i class="fas fa-calendar-check"></i> <strong>Published Year: </strong>
+                                <span class="float-right">{{ book.published_year }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item text-secondary">
+                                <i class="fas fa-business-time"></i> <strong>Publication: </strong>
+                                <span class="float-right">{{ book.publication }}
+                                </span>
+                            </li>
+                            <li class="list-group-item text-secondary">
+                                <i class="fas fa-calendar"></i> Listing Date:
+                                <span class="float-right">{{ book.listing_date }}</span>
+                            </li>
+                            <li class="list-group-item text-secondary">
+                                <i class="fas fa-user"></i> Realtor:
+                                <span class="float-right">{{ book.seller }}
+                                </span>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="row mb-5">
+                    <div class="col-md-12">
+                        {{ book.description }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card mb-3">
+                    <img class="card-img-top" src="{{ book.seller.photo.url }}" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">Book Seller</h5>
+                        <h6 class="text-secondary"><i class="fas fa-user-graduate text-secondary"></i> {{ book.seller.name }}</h6>
+                        <p class="card-text">
+                            {{ book.seller.about }}
+                        </p>
+                        <p><strong>Email: </strong>{{ book.seller.email }}</p>
+                        <p><strong>Passing Year: </strong>{{ book.seller.passing_year }}</p>
+                        <p><strong>Branch: </strong> {{ book.seller.branch }}</p>
+                        <p><strong>College: </strong>{{ book.seller.college }}</p>
+                        <p><strong>Join Date: </strong>{{ book.seller.join_date|date:"F d, Y" }}</p>
+                    </div>
+                </div>
+                <button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#inquiryModal">Make An Inquiry</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Inquiry Modal -->
+<div class="modal fade" id="inquiryModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="inquiryModalLabel">Make An Inquiry</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'contact' %}" method="POST">
+                    {% csrf_token %}
+                    {% if user.authenticated %}
+                    <input type="hidden" name="user_id" value="{{ user.id }}" disabled>
+                    {% else %}z
+                    <input type="hidden" name="user_id" value="0">
+                    {% endif %}
+                    <input type="hidden" name="seller_email" value="{{ book.seller.email }}" disabled>
+                    <input type="hidden" name="book_id" value="{{ book.id }}" disabled>
+                    <div class="form-group">
+                        <label for="property_name" class="col-form-label">Book:</label>
+                        <input type="text" name="book" class="form-control" value="{{ book.title }}" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="col-form-label">Name:</label>
+                        <input type="text" name="name" class="form-control" {% if user.is_authenticated %}
+                            value="{% if user.first_name %} {{ user.first_name }} {{ user.last_name }} {% else %} {{ user.username }} {% endif %}" {% endif %} required disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="col-form-label">Email:</label>
+                        <input type="email" name="email" class="form-control" {% if user.is_authenticated %}
+                            value="{{ user.email }}" {% endif %} required disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="message" class="col-form-label">Message:</label>
+                        <textarea name="message" class="form-control" required></textarea>
+                    </div>
+                    <hr>
+                    <input type="submit" value="Send" class="btn btn-block btn-secondary">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

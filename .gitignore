@@ -1,0 +1,7 @@
+# Virtual Env
+venv/
+*venv/
+
+# Django stuff:
+__pycache__/
+*__pycache__/

@@ -1,0 +1,49 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/favicon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'img/favicon/site.webmanifest' %}">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>Book Treasury {% block title %} {% endblock %}</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'css/all.css' %}">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <!-- Custom -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Lightbox -->
+    <link rel="stylesheet" href="{% static 'css/lightbox.min.css' %}">
+
+</head>
+
+<body>
+    <!-- Top Bar -->
+    {% include 'partials/_topbar.html' %}
+
+    <!-- Navbar -->
+    {% include 'partials/_navbar.html' %}
+
+    <!-- Main Content -->
+    {% block content %}
+
+    {% endblock %}
+
+    <!-- Footer -->
+    {% include 'partials/_footer.html' %}
+
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/lightbox.min.js' %}"></script>
+</body>
+
+</html>

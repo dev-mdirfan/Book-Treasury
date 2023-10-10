@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} | About Us {% endblock %}
+
+{% block content %}
+<section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <h1 class="display-4">About Book Treasury</h1>
+                <p class="lead">
+                    No matter what you are looking for, we have it all.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Breadcrumb -->
+<section id="bc" class="mt-3">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'home' %}">
+                        <i class="fas fa-home"></i> Home</a>
+                </li>
+                <li class="breadcrumb-item active"> About</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<section id="about" class="py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h2>
+                    We Search For The Perfect Book
+                </h2>
+                <p class="lead">
+                    What you are looking for is just a click away.
+                </p>
+                <img src="{% static 'img/about.jpg' %}" alt="">
+                <p class="mt-4">
+                    Welcome to <strong style="color: green;">Book Treasury</strong>, where our love for books meets your
+                    passion for reading. We are more than just a bookstore; we are your literary oasis, your source for
+                    inspiration, and your community of book enthusiasts.
+                </p>
+                <p>
+                    At <strong style="color: green;">Book Treasury</strong>, our journey began with a shared love for
+                    the written word. Founded in <i style="color: green;">2023</i>, we embarked on a mission to create a
+                    haven for book lovers of all ages and backgrounds. Over the years, our small independent bookstore
+                    has grown, but our commitment to fostering a love for reading has remained unwavering.
+                </p>
+                <h4>What Sets Us Apart:</h4>
+                <p>
+                    At <strong style="color: green;">Book Treasury</strong>, we believe that books have the power to
+                    open our minds, broaden our horizons, and enrich our lives. That's why we're committed to providing
+                    you with a curated selection of books that will inspire, educate, and entertain. We also believe
+                    that reading is a social activity, which is why we host a variety of events and book clubs to bring
+                    our community together.
+                <ol>
+                    <li>
+                        <h6>Curated Selection:</h6> Our team of dedicated bibliophiles handpicks each book in our
+                        collection. We
+                        believe in quality over quantity, ensuring that every title on our shelves is a literary gem.
+                    </li>
+                    <li>
+                        <h6>Community Focus:</h6> We're not just a store; we're a gathering place for book clubs, author
+                        signings,
+                        and literary events. Join our community of book enthusiasts and be a part of the conversation.
+                    </li>
+                    <li>
+                        <h6>Customer Service:</h6> We're here to help you find the perfect book for your needs. Our
+                        friendly
+                        staff is always happy to answer questions, make recommendations, and offer advice.
+                    </li>
+                    <li>
+                        <h6>Knowledgeable Staff:</h6> Our friendly and knowledgeable staff are always ready to recommend
+                        your
+                        next great read or engage in discussions about your favorite books.
+                    </li>
+                </ol>
+                </p>
+                <h4>Our Mission and Commitment to Sustainability:</h4>
+                <p>
+
+                    At [Your Bookstore's Name], our mission is to ignite and nurture the love of reading in everyone who
+                    walks through our doors or visits our website. We believe that books have the power to educate,
+                    entertain, and empower, and we're here to help you discover the magic within their pages.
+
+                    Our Commitment to Sustainability:
+
+                    We care about the environment, which is why we take steps to minimize our ecological footprint. We
+                    source sustainable materials for our packaging, encourage recycling, and promote eco-friendly
+                    practices in our store operations.
+                </p>
+
+                <h4>Join Us in Our Literary Journey:</h4>
+                <p>
+                    Whether you're a seasoned bookworm or just starting your reading journey, we invite you to explore
+                    our carefully curated collection, participate in our events, and become a part of the [Your
+                    Bookstore's Name] family.
+
+                    Thank you for choosing [Your Bookstore's Name] as your literary destination. Together, let's embark
+                    on countless adventures through the written word.
+                </p>
+            </div>
+            <div class="col-md-4">
+                <!-- MVP Logic -->
+                {% if is_best_seller %}
+                {% for seller in is_best_seller %}
+                <div class="card">
+                    <img class="card-img-top" src="{{ seller.photo.url }}" alt="Seller of the month">
+                    <div class="card-body">
+                        <h5 class="card-title">Best Seller Of The Month</h5>
+                        <h6 class="text-secondary"><i class="fas fa-user-graduate text-secondary"></i> {{ seller.name }}</h6>
+                        <p class="card-text">
+                            {{ seller.about }}
+                        </p>
+                        <p><strong>Email: </strong>{{ seller.email }}</p>
+                        <p><strong>Passing Year: </strong>{{ seller.passing_year }}</p>
+                        <p><strong>Branch: </strong> {{ seller.branch }}</p>
+                        <p><strong>College: </strong>{{ seller.college }}</p>
+                        <p><strong>Join Date: </strong>{{ seller.join_date|date:"F d, Y" }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Work -->
+<section id="work" class="bg-dark text-white text-center">
+    <h2 class="display-4">We Work For You</h2>
+    <h4>
+        <em>Our team of dedicated professionals are here to help you find the perfect book for your needs.</em>
+    </h4>
+    <hr>
+    <a href="{% url 'books' %}" class="btn btn-secondary text-white btn-lg">View Our Best Books</a>
+</section>
+
+<!-- Team -->
+<section id="team" class="py-5">
+    <div class="container">
+        <h2 class="text-center">Our Team</h2>
+        <hr>
+        <div class="row text-center">
+            <!-- Realtors Logic -->
+            {% if sellers %}
+            {% for seller in sellers %}
+            <div class="col-md-4">
+                <img src="{{ seller.photo.url }}" alt="" class="rounded-circle mb-3">
+                <h4><i class="fas fa-user-graduate text-black-50"></i> {{ seller.name }} <i class="fas fa-award text-success mb-3"> Seller</i></h4>
+                <p>
+                    {{ seller.passing_year }}, {{ seller.college  }}
+                </p>
+                <hr>
+                <p>
+                    <i class="fas fa-envelope-open"></i> {{ seller.email }}
+                    <i class="fas fa-home"></i> {{ seller.address }}
+                </p>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="col-md-12">
+                <p>No Realtors Available.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}
