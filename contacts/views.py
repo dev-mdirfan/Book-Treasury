@@ -13,17 +13,18 @@ def contact(request):
         email = request.POST['email']
         message = request.POST['message']
         user_id = request.POST['user_id']
+        seller_id = request.POST['seller_id']
         seller_email = request.POST['seller_email']
         
         # Check if user has already made inquiry
         if request.user.is_authenticated:
             user_id = request.user.id
-            has_contacted = Contact.objects.all().filter(book_id=book_id, user_id=user_id)
+            has_contacted = Contact.objects.all().filter(book_id=book_id, user_id=user_id, seller_id=seller_id)
             if has_contacted:
                 messages.error(request, 'You have already made inquiry for this book.')
                 return redirect('/books/'+ book_id)
         
-        contact = Contact(book=book, book_id=book_id, name=name, email=email, message=message, user_id=user_id)
+        contact = Contact(book=book, book_id=book_id, name=name, email=email, message=message, user_id=user_id, seller_id=seller_id)
         contact.save()
         # Send Email Config
         send_mail(
