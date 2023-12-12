@@ -76,29 +76,28 @@
     </div>
 </section>
 
-{% if is_seller  %}
+{% if seller_messages  %}
 <section id="dashboard" class="py-4">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <h2>Seller Account</h2>
-                {% if contacts %}
+                {% if seller_messages %}
                     <p>Here are the messages inquired..</p>
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">#User ID</th>
+                                <th scope="col">Inquiry By (UserID)</th>
                                 <th scope="col">Messages</th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for contact in contacts %}
+                            {% for contact in seller_messages %}
                                 <tr>
                                     <td>{{ contact.user_id }}</td>
                                     <td>{{ contact.message }}</td>
                                     <td>
-                                        <a class="btn btn-light" href="{% url 'book' contact.book_id %}">View Listing</a>
+                                        <a class="btn btn-light" href="{% url 'book' contact.book_id %}">For This Book</a>
                                     </td>
                                 </tr>
                             {% endfor %}

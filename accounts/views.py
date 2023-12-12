@@ -67,14 +67,11 @@ def logout(request):
 def dashboard(request):
     # Get user contacts
     user_contacts = Contact.objects.order_by('-contact_date').filter(user_id=request.user.id)
-    # check user is seller or not
-    is_seller = Seller.objects.filter(id=request.user.id).exists()
+    # Get seller messages
+    seller_messages = Contact.objects.order_by('-contact_date').filter(seller_id=request.user.id)
+    # seller_messages = Contact.objects.all().filter(seller_id=request.user.id).order_by('-contact_date')
     context = {
         'contacts': user_contacts,
-        'is_seller': is_seller,
+        'seller_messages': seller_messages,
     }
-    # if yes get all messages that seller received
-    if is_seller:
-        user_contacts = Contact.objects.order_by('-contact_date').filter(user_id=request.user.id)
-        context['user_contacts'] = user_contacts
     return render(request, 'accounts/dashboard.html', context)
