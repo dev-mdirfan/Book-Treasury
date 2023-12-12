@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages, auth
 from contacts.models import Contact
+from sellers.models import Seller
 
 def login(request):
     if request.method == 'POST':
@@ -66,7 +67,14 @@ def logout(request):
 def dashboard(request):
     # Get user contacts
     user_contacts = Contact.objects.order_by('-contact_date').filter(user_id=request.user.id)
+    # check user is seller or not
+    is_seller = Seller.objects.filter(id=request.user.id).exists()
     context = {
-        'contacts': user_contacts
+        'contacts': user_contacts,
+        'is_seller': is_seller,
     }
+    # if yes get all messages that seller received
+    if is_seller:
+        user_contacts = Contact.objects.order_by('-contact_date').filter(user_id=request.user.id)
+        context['user_contacts'] = user_contacts
     return render(request, 'accounts/dashboard.html', context)

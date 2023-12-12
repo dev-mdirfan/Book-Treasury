@@ -21,7 +21,7 @@ def contact(request):
             has_contacted = Contact.objects.all().filter(book_id=book_id, user_id=user_id)
             if has_contacted:
                 messages.error(request, 'You have already made inquiry for this book.')
-                return redirect('/book/'+ book_id)
+                return redirect('/books/'+ book_id)
         
         contact = Contact(book=book, book_id=book_id, name=name, email=email, message=message, user_id=user_id)
         contact.save()
@@ -35,4 +35,4 @@ def contact(request):
         )
         
         messages.success(request, 'Your request has been submitted to seller will get back to you soon')
-        return redirect('/book/'+ book_id)
+        return redirect('/books/'+ book_id)

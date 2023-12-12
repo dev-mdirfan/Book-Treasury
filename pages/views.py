@@ -22,3 +22,7 @@ def about(request):
         'is_best_seller': is_best_seller,
     }
     return render(request, 'pages/about.html', context)
+
+
+
+
