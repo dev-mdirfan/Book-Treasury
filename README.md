@@ -6,39 +6,39 @@ It is a book management system. It is a web application that can be used to mana
 
 1. Clone the repository
 
-```bash
-git clone https://github.com/dev-mdirfan/Book-Treasury.git
-```
+    ```bash
+    git clone https://github.com/dev-mdirfan/Book-Treasury.git
+    ```
 
-2. Change the working directory
+2. Create a virtual environment
 
-```bash
-cd Book-Treasury
-```
+    ```bash
+    python3 -m venv env
+    ```
 
-3. Create a virtual environment
+3. Activate the virtual environment
 
-```bash
-python3 -m venv venv
-```
-
-4. Activate the virtual environment
-
-```bash
-.\venv\Scripts\activate
-```
+    ```bash
+    env\Scripts\activate
+    ```
 
 5. Install dependencies
 
-```bash
-pip install -r requirements.txt
-```
+    ```bash
+    pip install -r requirements.txt
+    ```
 
 6. Run the server
 
-```bash
-python manage.py runserver
-```
+    ```bash
+    python manage.py runserver
+    ```
+
+7. Open the browser and go to the following URL
+
+    ```bash
+    http://127.0.0.1:8000/
+    ```
 
 ## Features
 
